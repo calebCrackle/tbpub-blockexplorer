@@ -94,7 +94,11 @@ The amount of BTC that was sent to the script starting with OP_RETURN is the Cos
 ### Limitations
 As its creating an unspendable Transaction Output we have to be very limited in the amount of data we store and how many of these tbPUB Transaction we create. Therefore we limit the protocal to one tbPUB Transaction per Block. If two or more tbPUB Transacactions are found only the highest paying one is concidered valid and the rest are ignored. This provides a large incentive to batch up documents before publishing and ensure that there are no other tbPUb Transactions in he mempool before broadcasting.
 
-## tbPUB Interface
+## tbPUB Bitcoin Interface
+
+The tbPUB Bitcoin Interface(TBI) uses RPC to communicate with a running Bitcoin Core instance for the purpose of discoving and creating tbPUB Transactions. 
+The TBI crawls through the blockchain looking for tbPUB Transactions and returing the data it finds, as well as listeing for transactions in future blocks.
+The TBI also has its own RPC commands to allow you to publish a Root Node URI or Book Hash
 
 ### Datatypes
 
@@ -128,31 +132,12 @@ A JSON Array of Pages. The price of the book is the sum of the prices of its pag
 
 ### RPC
 
-#### broadcasturi URI price 
-URI (Required) The URI pointing to a tbPUB Root Node
+#### broadcasturi __URI__ __price__ 
+__URI__ (Required) The __URI__ pointing to a tbPUB Root Node
 
-price (Optional) The amount of BTC that will be destroyed to publish the URI, the minimum and default cost is 10,000 Satoshis. 
+__price__ (Optional) The amount of BTC that will be destroyed to publish the __URI__, the minimum and default cost is 10,000 Satoshis
 
-#### broadcastbook book price
-book (Required) A JSON Array of tbPUB Pages
+#### broadcastbook __book__ __price__
+__book__ (Required) A JSON Array of tbPUB Pages
 
-price (Optinal) The amount of BTC that will be destroyed to publish the Book, the minimum and deafult cost is 1 Satoshi Per byte in the Book
-
-
-## tbPUB Block Explorer
-
-The tbPUB Block Explorer is the interface between tbPUB and the Bitcoin Network. It crawls through the blockchain looking for tbPUB Transactions and returing the data it finds.
-
-### Requirements
-1. A running Bitcoin Core instance
-2. The credentials to the Bitcoin Core RPC
-
-## tbPUB Transaction Creator
-
-The tbPUB Transaction Creator will generate a tbPUB Transaction from a wallet to publish a Root Node URI or New Book Hash.
-
-### Requirements
-1. A running Bitcoin Core instance
-2. The credentials to the Bitcoin Core RPC
-3. The name of the wallet to use
-
+__price__ (Optinal) The amount of BTC that will be destroyed to publish the __book__, the minimum and deafult cost is 1 Satoshi Per byte in the data fields of the __book__
