@@ -118,6 +118,10 @@ A JSON Array of Pages. The price of the book is the sum of the prices of its pag
 ```JSON
 [
     {
+        "price": 10,
+        "data": "1234567890"
+    },
+    {
         "price": 20,
         "data": "12345678901112131415"
     },
