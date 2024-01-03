@@ -82,6 +82,7 @@ graph LR;
     Two[TBPUB];
     Three[0];
     Four[URI];
+    One --- Two --- Three --- Four;
 ```
 
 
