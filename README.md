@@ -84,7 +84,7 @@ A Root Node listing pointing to http://example.com
 
 A Book Hash listing with the hash
 
-![resources](https://docs.google.com/drawings/d/e/2PACX-1vT0izA1a35zSeAtRyYYDBRgBd2YQsrxlRDzxnFwIh0nOmjLDRHmWI3egeqaeVCIgaHQNzKt1K1EXrZz/pub?w=480&h=360)
+![resources](https://docs.google.com/drawings/d/e/2PACX-1vT0izA1a35zSeAtRyYYDBRgBd2YQsrxlRDzxnFwIh0nOmjLDRHmWI3egeqaeVCIgaHQNzKt1K1EXrZz/pub?w=480&h=400)
 
 ```mermaid
 graph LR;
