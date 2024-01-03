@@ -130,10 +130,12 @@ A JSON Array of Pages. The price of the book is the sum of the prices of its pag
 
 #### broadcasturi URI price 
 URI (Required) The URI pointing to a tbPUB Root Node
+
 price (Optional) The amount of BTC that will be destroyed to publish the URI, the minimum and default cost is 10,000 Satoshis. 
 
 #### broadcastbook book price
 book (Required) A JSON Array of tbPUB Pages
+
 price (Optinal) The amount of BTC that will be destroyed to publish the Book, the minimum and deafult cost is 1 Satoshi Per byte in the Book
 
 
