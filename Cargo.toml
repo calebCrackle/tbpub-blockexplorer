@@ -1,0 +1,11 @@
+[package]
+name = "tbpub"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bitcoincore-rpc = "0.17.0"
+thiserror = "1.0"
+sqlite = "0.32.0"
+home = "0.5.5"
+hex = "0.4.3"

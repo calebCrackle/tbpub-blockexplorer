@@ -118,3 +118,54 @@ A TBBandwidth is a type of tbPUB Page that contains a bunch of DIDs and a Price 
 ### Uses
 1. Discovery of DIDs
 2. Putting a price on a DID
+
+
+## Setup
+tbPUB Setup requires:
+1. A full Bitcoin Core node
+2. A wallet with Bitcoin Core
+3. A reverse proxy
+
+### Bitcoin Core
+Bitcoin core can be downloaded from here(link).
+Bitcoin core will need to sync the blockchain and this can take several hours.
+
+### Setup a Bitcoin Core wallet
+After Bitcoin Core has synced then create a wallet by:
+1. Navigate to File->Create Wallet
+2. Leave these options untouch and click create
+
+
+### Setup a Reverse Proxy
+In order for tbPUB to function it must be discoverable by other tbPUB Root Nodes. This requires that the tbPUB service is exposed with some URI. When tbPUB starts up it will test the URI and after testing it will broadcast it for discovery in a tbPUB Transaction. See the guides below for each machine:
+
+Linux(link)(Recommended)
+https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu-22-04
+
+MacOS(link)
+https://www.digestibledevops.com/devops/2021/02/22/reverseproxy-mac.html
+
+Windows(link)
+https://learn.microsoft.com/en-us/iis/extensions/url-rewrite-module/reverse-proxy-with-url-rewrite-v2-and-application-request-routing
+
+### tbPUB
+Download the tbPUB Binary from the releases page found here(link).
+
+To run the binary it has several options that must be set:
+1. uri: The URI to the exposed reverse proxy.
+2. rpcuser: The user name to connect to the running Bitcoin Core RPC
+3. rpcpassword: The user name to connect to the running Bitcoin Core RPC
+4. wallet: The name of the wallet that was created in Bitcoin Core
+
+It also has several optional settings that can be set
+1. rpcuri: The URI to the running Bitcoin Core instance(Default: localhost:)
+
+
+graph TD
+    A[Enter Chart Definition] --> B(Preview)
+    B --> C{decide}
+    C --> D[Keep]
+    C --> E[Edit Definition]
+    E --> B
+    D --> F[Save Image and Code]
+    F --> B
