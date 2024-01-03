@@ -75,7 +75,7 @@ Data sent through a Bitcoin Transaction is generally hundreds of times more expe
 tbPUB uses a certian type of Bitcoin Transaction that is used to discover Root Nodes and Published Books. 
 All tbPUB Transactions have one output that sends to a script constructed as follows:
 1. (RED)    OP_RETURN(0xa9)
-2. (GREEN)  The text "TBPUB"
+2. (GREEN)  The text "TBPUB" hex encoded
 3. (BLUE)   A 0 to indicate a Root Node URI OR a 1 to indicate a Book Hash
 4. (PURPLE) The URI or Book Hash as indicated above
 
@@ -89,18 +89,68 @@ A Book Hash listing with the hash:
 
 ![resources](https://docs.google.com/drawings/d/e/2PACX-1vT0izA1a35zSeAtRyYYDBRgBd2YQsrxlRDzxnFwIh0nOmjLDRHmWI3egeqaeVCIgaHQNzKt1K1EXrZz/pub?w=480&h=400)
 
-## tbPUB Block Explorer
+The amount of BTC that was sent to the script starting with OP_RETURN is the Cost of the Transaction. If the transaction is publishing a Root Node URI that cost must be at least 10,000 sats to be valid. If the transaction is publishing a Book Hash the cost must be at least 1 sat per byte in the book. Any transactions that don't meet this requirement are ignored as invalid.
 
-### Description
+### Limitations
+As its creating an unspendable Transaction Output we have to be very limited in the amount of data we store and how many of these tbPUB Transaction we create. Therefore we limit the protocal to one tbPUB Transaction per Block. If two or more tbPUB Transacactions are found only the highest paying one is concidered valid and the rest are ignored. This provides a large incentive to batch up documents before publishing and ensure that there are no other tbPUb Transactions in he mempool before broadcasting.
+
+## tbPUB Interface
+
+### Datatypes
+
+#### Page
+
+An object that contains only a price and a data field. The price of the Page is equivilent to 1 Satoshi per Byte in the data field.
+
+```JSON
+{
+    "price": 10,
+    "data": "1234567890"
+}
+```
+
+#### Book
+
+A JSON Array of Pages. The price of the book is the sum of the prices of its pages.
+
+```JSON
+[
+    {
+        "price": 20,
+        "data": "12345678901112131415"
+    },
+    .
+    .
+    .
+]
+
+```
+
+### RPC
+
+#### broadcasturi URI price 
+URI (Required) The URI pointing to a tbPUB Root Node
+price (Optional) The amount of BTC that will be destroyed to publish the URI, the minimum and default cost is 10,000 Satoshis. 
+
+#### broadcastbook book price
+book (Required) A JSON Array of tbPUB Pages
+price (Optinal) The amount of BTC that will be destroyed to publish the Book, the minimum and deafult cost is 1 Satoshi Per byte in the Book
+
+
+## tbPUB Block Explorer
 
 The tbPUB Block Explorer is the interface between tbPUB and the Bitcoin Network. It crawls through the blockchain looking for tbPUB Transactions and returing the data it finds.
 
+### Requirements
+1. A running Bitcoin Core instance
+2. The credentials to the Bitcoin Core RPC
 
+## tbPUB Transaction Creator
 
-## tbPUB Root Node
+The tbPUB Transaction Creator will generate a tbPUB Transaction from a wallet to publish a Root Node URI or New Book Hash.
 
-### Description 
+### Requirements
+1. A running Bitcoin Core instance
+2. The credentials to the Bitcoin Core RPC
+3. The name of the wallet to use
 
-The tbPUB Root Node is equivelent to the Bitcoin Core Full Node. It handles everything from discovery of dids and books, to verfication and storage of them.
-
-### Block Chain Explorer
