@@ -1,7 +1,5 @@
 # TBPUB
 
-## REQUISITS
-
 ## Bitcoin Core
 
 ### Description
@@ -10,21 +8,21 @@ Bitcoin core is the only fully trusted p2p network, such that when a transaction
 
 ```mermaid
 graph LR;
-    subgraph BOne [Block1]
+    subgraph BOne [Block 1]
         direction TB
         TOne[Transaction]
         TTwo[Transaction]
         TThree[Transaction]
         TOne ~~~ TTwo ~~~ TThree;
     end
-    subgraph BTwo [Block2]
+    subgraph BTwo [Block 2]
         direction TB
         TFour[Transaction]
         TFive[Transaction]
         TSix[Transaction]
         TFour ~~~ TFive ~~~ TSix;
     end
-    subgraph BThree [Block3]
+    subgraph BThree [Block 3]
         direction TB
         TSeven[Transaction]
         TEight[Transaction]
@@ -97,7 +95,7 @@ As its creating an unspendable Transaction Output we have to be very limited in 
 ## tbPUB Bitcoin Interface
 
 The tbPUB Bitcoin Interface(TBI) uses RPC to communicate with a running Bitcoin Core instance for the purpose of discoving and creating tbPUB Transactions. 
-The TBI crawls through the blockchain looking for tbPUB Transactions and returing the data it finds, as well as listeing for transactions in future blocks.
+It will crawl through the blockchain looking for tbPUB Transactions and returing the data it finds, as well as listeing for transactions in future blocks.
 The TBI also has its own RPC commands to allow you to publish a Root Node URI or Book Hash
 
 ### Datatypes
@@ -141,3 +139,26 @@ __price__ (Optional) The amount of BTC that will be destroyed to publish the __U
 __book__ (Required) A JSON Array of tbPUB Pages
 
 __price__ (Optinal) The amount of BTC that will be destroyed to publish the __book__, the minimum and deafult cost is 1 Satoshi Per byte in the data fields of the __book__
+
+### Running the TBI
+
+With a running Bitcoin Core instance and after downloading the binary run the following command replacing the options as needed:
+
+```
+/path/to/tbpub --rpcuser=rpcuser --rpcpassword=rpcpassword --wallet=WalletName 
+```
+
+#### datadir
+The path to store all needed data for tbPUB, defaults to ~/.tbpub
+
+#### rpcurl 
+The url for the Bitcoin Core RPC, defaults to localhost:9443
+
+#### rpcuser
+The username for the Bitcoin Core RPC.
+
+#### rpcpassword
+The password for the Bitcoin Core RPC.
+
+#### wallet
+The name of the wallet to use for transaction creation.
