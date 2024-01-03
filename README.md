@@ -79,7 +79,7 @@ All tbPUB Transactions have one output that sends to a script constructed as fol
 3. (BLUE)   A 0 to indicate a Root Node URI OR a 1 to indicate a Book Hash
 4. (PURPLE) The URI or Book Hash as indicated above
 
-
+A Root Node listing pointing to ``` http://example.com ``
 ![resources](https://docs.google.com/drawings/d/e/2PACX-1vSgik6ZBIjJLcii07vS8Lk9De2VsoUDsqZgCeFFlZUg-Y6JljoVq3MVhRcCifDtEe6UvsxYu4Fkl32a/pub?w=480&h=360)
 
 ```mermaid
