@@ -72,7 +72,12 @@ Data sent through a Bitcoin Transaction is generally hundreds of times more expe
 
 ## tbPUB Transaction
 
-tbPUB uses a certian type of Bitcoin Transaction that is used to discover Root Nodes and Published Books. All tbPUB Transactions have one output that sends to a script that starts with OP_RETURN. After the OP_RETURN it is followed by the text "TBPUB", followed by either a 0 or a 1 to indicate a new Root Node or Book Hash, followed by either a URI to a Root Node or a 20 byte hex encoded Book Hash.
+tbPUB uses a certian type of Bitcoin Transaction that is used to discover Root Nodes and Published Books. 
+All tbPUB Transactions have one output that sends to a script that starts with OP_RETURN(0xa9). The rest of the script is as follows:
+1. The text "TBPUB"
+2. A 0 to indicate a Root Node URI OR a 1 to indicate a Book Hash
+3. The URI or Book Hash as indicated above
+
 
 ![resources](https://docs.google.com/drawings/d/e/2PACX-1vSgik6ZBIjJLcii07vS8Lk9De2VsoUDsqZgCeFFlZUg-Y6JljoVq3MVhRcCifDtEe6UvsxYu4Fkl32a/pub?w=480&h=360)
 
