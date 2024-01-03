@@ -84,7 +84,7 @@ All tbPUB Transactions have one output that sends to a script constructed as fol
 A Root Node listing pointing to http://example.com
 ![resources](https://docs.google.com/drawings/d/e/2PACX-1vSgik6ZBIjJLcii07vS8Lk9De2VsoUDsqZgCeFFlZUg-Y6JljoVq3MVhRcCifDtEe6UvsxYu4Fkl32a/pub?w=480&h=360)
 
-A Book Hash listing with the hash
+A Book Hash listing with the hash 323072616E646F6D323063686172616374657273
 
 ![resources](https://docs.google.com/drawings/d/e/2PACX-1vT0izA1a35zSeAtRyYYDBRgBd2YQsrxlRDzxnFwIh0nOmjLDRHmWI3egeqaeVCIgaHQNzKt1K1EXrZz/pub?w=480&h=400)
 
