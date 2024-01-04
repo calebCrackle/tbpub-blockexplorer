@@ -92,11 +92,20 @@ The amount of BTC that was sent to the script starting with OP_RETURN is the Cos
 ### Limitations
 As its creating an unspendable Transaction Output we have to be very limited in the amount of data we store and how many of these tbPUB Transaction we create. Therefore we limit the protocal to one tbPUB Transaction per Block. If two or more tbPUB Transacactions are found only the highest paying one is concidered valid and the rest are ignored. This provides a large incentive to batch up documents before publishing and ensure that there are no other tbPUb Transactions in he mempool before broadcasting.
 
-## tbPUB Bitcoin Interface
+## tbPUB Root Node 
 
-The tbPUB Bitcoin Interface(TBI) uses RPC to communicate with a running Bitcoin Core instance for the purpose of discoving and creating tbPUB Transactions. 
-It will crawl through the blockchain looking for tbPUB Transactions and returing the data it finds, as well as listeing for transactions in future blocks.
-The TBI also has its own RPC commands to allow you to publish a Root Node URI or Book Hash
+The tbPUB Root Node is a Rust Application, It will communicate with a running Bitcoin Core instance via RPC for the purpose of discoverying and publishing new Root Node URIs and Book Hashes.
+It will crawl through the blockchain looking for tbPUB Transactions and store the resulting data, as well as listeing for transactions in future blocks.
+
+### Start up
+
+On startup the Root node will crawl the blockchain looking for tbPUB Transactions storing any data it finds. 
+From the tbPUB Transactions it gets a list of vaild Root Node URIs and unverified Book Hashes.
+In order to query other Root Nodes for the Books corosponding to the hashes it discovered, It must be discoverable on the network.
+To be discoverable by the network your Root Node must have a vaild URI pointing to it published in the blockchain.
+If it dose not have its URI in the blockchain it will ask the user to run the RPC command **broadcasturi**.
+After the Root Node is on the network it will query other Root Nodes for Books. And after verifying the Book matches the Book Hash and that it has be sufficently paid for it will be stored.
+All valid Books that are discovered are then readable by other Root Nodes on the network. To preventa DDOS attack of on your Root Node it will only allow other Root Nodes to query for Books exactly once.
 
 ### Datatypes
 
@@ -139,10 +148,22 @@ __URI__ (Required) The __URI__ pointing to a tbPUB Root Node
 
 __price__ (Optional) The amount of BTC that will be destroyed to publish the __URI__, the minimum and default cost is 10,000 Satoshis
 
+Creates and sendsa tbPUB Transaction that contains a URI to a Root Node.
+
 #### broadcastbook __book__ __price__
 __book__ (Required) A JSON Array of tbPUB Pages
 
 __price__ (Optinal) The amount of BTC that will be destroyed to publish the __book__, the minimum and deafult cost is 1 Satoshi Per byte in the data fields of the __book__
+
+Creates and sends a tbPUB Transaction that contains the hash of the Book.
+
+#### listbooks
+
+Lists all the valid discovered books.
+
+#### listpages
+
+Lists all the valid discoverd pages.
 
 ### Running the TBI
 
