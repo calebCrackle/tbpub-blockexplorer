@@ -94,13 +94,30 @@ As its creating an unspendable Transaction Output we have to be very limited in 
 
 ## tbPUB Root Node 
 
-The tbPUB Root Node is a Rust Application, It will communicate with a running Bitcoin Core instance via RPC for the purpose of discoverying and publishing new Root Node URIs and Book Hashes.
-It will crawl through the blockchain looking for tbPUB Transactions and store the resulting data, as well as listeing for transactions in future blocks.
+The tbPUB Root Node is the equivalent of a Bitcoin Core full node, it is split into two major components, the block explorer, and the hosted DWN.
 
 ### Block Explorer
-The first thing the Root Node will do is crawl the blockchain for tbPUB Transactions. Storing any discovered Root Nodes and Book Hashes.
+The block explorer requires a connection to a Bitcoin Core RPC instance and serves to purposes. The first is it will crawl through the blockchain looking for any other Root Node DIDs, and Book Hashes. Storing these DIDs and Hashes in a SQLITE database at a configurable location. The second is to use a wallet to create new transactions for broadcasting DIDs and Book Hashes on the Block-chain.
 
-Spam/DDOS Problems: None
+#### Config
+
+##### datadir(Optional)
+This is a path to a directory to store the databases. Defaults to ```/home/user/.tbpub/```
+
+##### cliurl(Optional)
+This is the url to listen for RPC requests for the block explorer. Defaults to ```localhost:9443```
+
+##### bitcoinrpcuser(Optional)
+This is the url for the running Bitcoin Core RPC instance
+
+##### bitcoinrpcuser(Required)
+This is the user name for the running Bitcoin Core RPC instance
+
+##### bitcoinrpcpassword(Required)
+This is the password for the running Bitcoin Core RPC instance
+
+##### wallet(Required)
+This is the wallet name to use for transaction creation
 
 ### Joining the Network
 After we get a list of Book Hashes we need to resolve the Hash to actual Books. To prevent DDOS attacks Root Nodes can only be queried by other Nodes on the Network. To join the network the Root Node will create a tbPUB Transaction containing the URI to your Root Node.

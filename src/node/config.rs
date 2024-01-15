@@ -23,10 +23,10 @@ impl Config {
             if argp[0].chars().next().unwrap() == '-' {key = key[1..].to_string()};
             match key.as_str() {
                 "datadir" => self.datadir = PathBuf::from(value),
-                "cliurl" => self.rpcuser = value,
-                "rpcurl" => self.rpcurl = value,
-                "rpcpassword" => self.rpcpassword = value,
-                "rpcuser" => self.rpcuser = value,
+                "cliurl" => self.cliurl = value,
+                "bitcoinrpcurl" => self.rpcurl = value,
+                "bitcoinrpcpassword" => self.rpcpassword = value,
+                "bitcoinrpcuser" => self.rpcuser = value,
                 "wallet" => self.wallet = value,
                 _ => return Err(Error::UnknownArgument(key)),
             }
