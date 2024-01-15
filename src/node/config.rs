@@ -11,13 +11,6 @@ pub struct Config {
     pub rpcpassword: String,
     pub rpcuser: String,
     pub wallet: String,
-    pub watchonlywallet: String,
-    pub blockheight: u64,
-
-    //Consensus settings(DO NOT CHANGE)
-    pub address: String,
-    pub descriptor: String,
-    pub min_page_n_value: i64
 }
 
 impl Config {
@@ -35,8 +28,6 @@ impl Config {
                 "rpcpassword" => self.rpcpassword = value,
                 "rpcuser" => self.rpcuser = value,
                 "wallet" => self.wallet = value,
-                "watchonlywallet" => self.watchonlywallet = value,
-                "blockheight" => self.blockheight = value.parse()?,
                 _ => return Err(Error::UnknownArgument(key)),
             }
         }
@@ -45,7 +36,7 @@ impl Config {
 
     pub fn new() -> Result<Config, Error> {
         let mut path = home::home_dir().ok_or(Error::NoHomeDir())?;
-        path.push(".lipnode");
+        path.push(".tbpub");
         let mut config = Config{
             datadir: path,
             cliurl: "127.0.0.1:9443".to_string(),
@@ -53,13 +44,6 @@ impl Config {
             rpcpassword: "".to_string(), 
             rpcuser: "".to_string(),
             wallet: "".to_string(),
-            watchonlywallet: "librarywatchonly".to_string(),
-            blockheight: 0,
-            //Consensus settings(DO NOT CHANGE)
-            address: "37gsHDLSG5TJvApGfiUZDaDo9mSr6rjLv6".to_string(),
-            descriptor: "addr(37gsHDLSG5TJvApGfiUZDaDo9mSr6rjLv6)#gs8ecs39".to_string(),
-            min_page_n_value: 100
-            //descriptor: "raw(6a4c494252415259)#gpxdkmh7".to_string()
         };
         create_dir_all(&config.datadir)?;
 

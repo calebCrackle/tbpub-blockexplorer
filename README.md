@@ -59,7 +59,7 @@ Transactions are the only method of communication accross Bitcoin Core. All tran
 ```
 
 ### OP_RETURN
-Any Output Script that starts with OP_RETURN(0xa9) is unspendable and concidered destroyed. This isnt harmful to Bitcoin because by destroying some Bitcoin, you make all the rest of it more rare and therefor more valuable. You can think of it as a donation to everyone that has bitcoin. 
+Any Output Script that starts with OP_RETURN(0x6a) is unspendable and concidered destroyed. This isnt harmful to Bitcoin because by destroying some Bitcoin, you make all the rest of it more rare and therefor more valuable. You can think of it as a donation to everyone that has bitcoin. 
 
 ### Limitations
 
@@ -72,7 +72,7 @@ Data sent through a Bitcoin Transaction is generally hundreds of times more expe
 
 tbPUB uses a certian type of Bitcoin Transaction that is used to discover Root Nodes and Published Books. 
 All tbPUB Transactions have one output that sends to a script constructed as follows:
-1. (RED)    OP_RETURN(0xa9)
+1. (RED)    OP_RETURN(0x6a)
 2. (GREEN)  The text "TBPUB" hex encoded
 3. (BLUE)   A 0 to indicate a Root Node URI OR a 1 to indicate a Book Hash
 4. (PURPLE) The URI or Book Hash as indicated above
@@ -97,15 +97,22 @@ As its creating an unspendable Transaction Output we have to be very limited in 
 The tbPUB Root Node is a Rust Application, It will communicate with a running Bitcoin Core instance via RPC for the purpose of discoverying and publishing new Root Node URIs and Book Hashes.
 It will crawl through the blockchain looking for tbPUB Transactions and store the resulting data, as well as listeing for transactions in future blocks.
 
-### Start up
+### Block Explorer
+The first thing the Root Node will do is crawl the blockchain for tbPUB Transactions. Storing any discovered Root Nodes and Book Hashes.
 
-On startup the Root node will crawl the blockchain looking for tbPUB Transactions storing any data it finds. 
-From the tbPUB Transactions it gets a list of vaild Root Node URIs and unverified Book Hashes.
-In order to query other Root Nodes for the Books corosponding to the hashes it discovered, It must be discoverable on the network.
-To be discoverable by the network your Root Node must have a vaild URI pointing to it published in the blockchain.
-If it dose not have its URI in the blockchain it will ask the user to run the RPC command **broadcasturi**.
-After the Root Node is on the network it will query other Root Nodes for Books. And after verifying the Book matches the Book Hash and that it has be sufficently paid for it will be stored.
-All valid Books that are discovered are then readable by other Root Nodes on the network. To preventa DDOS attack of on your Root Node it will only allow other Root Nodes to query for Books exactly once.
+Spam/DDOS Problems: None
+
+### Joining the Network
+After we get a list of Book Hashes we need to resolve the Hash to actual Books. To prevent DDOS attacks Root Nodes can only be queried by other Nodes on the Network. To join the network the Root Node will create a tbPUB Transaction containing the URI to your Root Node.
+
+Spam/DDOS Problems:
+To prevent a Root Node from being bombarded with querys for Books each Root Node will only share books with another Root Node, And will only pass it along to each Root Node on the Network once.
+
+### Resolving Book Hashes
+To get a book the Root Node will query other Root Nodes for the Book coropsonding with the Hash. After reciveving a Book it will verify the hash matches before marking it as a valid Book. 
+
+Spam/DDOS Problems:
+2. To prevent a Root Node from reading a ton of garbage data when querying for a book, Root Nodes will be concius of the amount paid for the Book in the tbPUB Transaction ensuring it never attepmts to read more data then was paid for.
 
 ### Datatypes
 

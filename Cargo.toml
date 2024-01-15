@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 bitcoincore-rpc = "0.17.0"
 signal-hook = "0.3.17"
-bitcoin = "0.31.0"
+bitcoin = "0.30.1"
 bitcoin_hashes12 = { package = "bitcoin_hashes", version = "0.12.0" }
 bitcoin_hashes13 = { package = "bitcoin_hashes", version = "0.13.0" }
 sqlite = "0.32.0"
@@ -20,11 +20,12 @@ home = "0.5.5"
 hex = "0.4.3"
 either = "1.9.0"
 merkletree = "0.23.0"
+http = "1.0.0"
 
 [[bin]]
-name = "lipnode"
-path = "src/lipnode/main.rs"
+name = "tbpub_node"
+path = "src/node/main.rs"
 
 [[bin]]
-name = "lipcli"
-path = "src/lipcli/main.rs"
+name = "tbpub_cli"
+path = "src/cli/main.rs"
