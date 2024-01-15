@@ -99,16 +99,7 @@ The tbPUB Root Node is the equivalent of a Bitcoin Core full node, it is split i
 ### Block Explorer
 The block explorer requires a connection to a Bitcoin Core RPC instance and serves to purposes. The first is it will crawl through the blockchain looking for any other Root Node DIDs, and Book Hashes. Storing these DIDs and Hashes in a SQLITE database at a configurable location. The second is to use a wallet to create new transactions for broadcasting DIDs and Book Hashes on the Block-chain.
 
-#### Config
-
-##### datadir(Optional)
-This is a path to a directory to store the databases. Defaults to ```/home/user/.tbpub/```
-
-##### cliurl(Optional)
-This is the url to listen for RPC requests for the block explorer. Defaults to ```localhost:9443```
-
-##### bitcoinrpcuser(Optional)
-This is the url for the running Bitcoin Core RPC instance
+#### Config Options
 
 ##### bitcoinrpcuser(Required)
 This is the user name for the running Bitcoin Core RPC instance
@@ -118,6 +109,15 @@ This is the password for the running Bitcoin Core RPC instance
 
 ##### wallet(Required)
 This is the wallet name to use for transaction creation
+
+##### datadir(Optional)
+This is a path to a directory to store the databases and read the config file. Defaults to ```/home/user/.tbpub/```
+
+##### cliurl(Optional)
+This is the url to listen for RPC requests for the block explorer. Defaults to ```localhost:9443```
+
+##### bitcoinrpcuser(Optional)
+This is the url for the running Bitcoin Core RPC instance
 
 ### Joining the Network
 After we get a list of Book Hashes we need to resolve the Hash to actual Books. To prevent DDOS attacks Root Nodes can only be queried by other Nodes on the Network. To join the network the Root Node will create a tbPUB Transaction containing the URI to your Root Node.
@@ -164,50 +164,3 @@ A JSON Array of Pages. The price of the book is the sum of the prices of its pag
 ]
 
 ```
-
-### RPC
-
-#### broadcasturi __URI__ __price__ 
-__URI__ (Required) The __URI__ pointing to a tbPUB Root Node
-
-__price__ (Optional) The amount of BTC that will be destroyed to publish the __URI__, the minimum and default cost is 10,000 Satoshis
-
-Creates and sendsa tbPUB Transaction that contains a URI to a Root Node.
-
-#### broadcastbook __book__ __price__
-__book__ (Required) A JSON Array of tbPUB Pages
-
-__price__ (Optinal) The amount of BTC that will be destroyed to publish the __book__, the minimum and deafult cost is 1 Satoshi Per byte in the data fields of the __book__
-
-Creates and sends a tbPUB Transaction that contains the hash of the Book.
-
-#### listbooks
-
-Lists all the valid discovered books.
-
-#### listpages
-
-Lists all the valid discoverd pages.
-
-### Running the TBI
-
-With a running Bitcoin Core instance and after downloading the binary run the following command replacing the options as needed:
-
-```
-/path/to/tbpub --rpcuser=rpcuser --rpcpassword=rpcpassword --wallet=WalletName 
-```
-
-#### datadir
-The path to store all needed data for tbPUB, defaults to ~/.tbpub
-
-#### rpcurl 
-The url for the Bitcoin Core RPC, defaults to localhost:9443
-
-#### rpcuser
-The username for the Bitcoin Core RPC.
-
-#### rpcpassword
-The password for the Bitcoin Core RPC.
-
-#### wallet
-The name of the wallet to use for transaction creation.
